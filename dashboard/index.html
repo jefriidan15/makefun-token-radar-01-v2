@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <span class="logo">◉</span>
+    <div>
+      <h1>TOKEN RADAR</h1>
+      <p class="sub">Pre-token protocols, ranked by what a token would be worth — model radar-2</p>
+    </div>
+  </div>
+  <div class="stamp">
+    <span>Snapshot <b id="asOfTop"></b></span>
+    <span>Floor <b>$50M TVL</b></span>
+    <span>Model <b>radar-2</b></span>
+  </div>
+</header>
+
+<section class="strip" id="stats" aria-label="Board totals"></section>
+
+<section class="controls" aria-label="Filter the board">
+  <input id="q" type="search" placeholder="Search name or slug…" autocomplete="off">
+  <select id="cat" aria-label="Category"><option value="">All categories</option></select>
+  <select id="chain" aria-label="Chain"><option value="">All chains</option></select>
+  <select id="minTvl" aria-label="Minimum TVL">
+    <option value="0" selected>TVL ≥ $0</option>
+    <option value="50000000">TVL ≥ $50M</option>
+    <option value="100000000">TVL ≥ $100M</option>
+    <option value="500000000">TVL ≥ $500M</option>
+    <option value="1000000000">TVL ≥ $1B</option>
+  </select>
+  <label class="check"><input id="watchOnly" type="checkbox"> Watchlist only</label>
+  <select id="sort" aria-label="Sort by">
+    <option value="implied">Sort: implied value ↓</option>
+    <option value="tvl">Sort: TVL ↓</option>
+    <option value="change">Sort: 7d change ↓</option>
+    <option value="name">Sort: name A–Z</option>
+  </select>
+</section>
+
+<main>
+  <section class="board-wrap">
+    <div class="board-head">
+      <h2>Ranked board</h2>
+      <span id="count"></span>
+    </div>
+    <table id="board">
+      <thead>
+        <tr>
+          <th data-sort="rank">#</th>
+          <th data-sort="name">Protocol</th>
+          <th data-sort="category">Category</th>
+          <th>Chains</th>
+          <th data-sort="tvl">TVL</th>
+          <th data-sort="change">7d</th>
+          <th data-sort="implied">Implied value</th>
+          <th data-sort="multiple">Multiple</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <p class="hint">Click a row for the full detail view below the board: value breakdown, comparables, farm plan and risks.</p>
+  </section>
+
+  <section class="detail" id="detail" aria-live="polite" hidden></section>
+</main>
+
+<footer>
+  <h3>How radar-2 works</h3>
+  <p>Implied value = TVL × comparable multiple × growth × maturity × breadth. The multiple is the median market-cap-to-TVL ratio of live-token protocols in the same category (3+ peers, else the global median), clamped to 0.05–0.60. Growth adds half the 7-day TVL change (clamped −60% to +120%). Maturity rises with age up to 3 years. Breadth adds up to 10% for multi-chain protocols. Only protocols that record no token rank; live-token protocols are comparables, never ranked.</p>
+  <p class="fine">Snapshot as of <span id="asOf"></span>. An implied value is this entry's own claim from the snapshot's figures — not a price, not a prediction that a token will launch, and not investment advice. Farm plans assume small test amounts first and no unlimited approvals.</p>
+</footer>
+
+<script src="steps.js"></script>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
